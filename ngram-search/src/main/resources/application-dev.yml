@@ -1,0 +1,11 @@
+server:
+  port: 8060
+
+spring:
+  application:
+    name: N-gram search POC
+  datasource:
+    name: n-gram-search
+    url: jdbc:mysql://localhost:3306/n_gram
+    username: def_shiv
+    password: def_shiv
