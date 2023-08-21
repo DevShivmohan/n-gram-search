@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/ngram")
@@ -23,5 +24,14 @@ public class NGramController {
     @GetMapping
     public ResponseEntity<?> findAllRecords(){
         return nGramService.fetchRecords();
+    }
+
+    /**
+     * Return the base URL of the server
+     * @return
+     */
+    @GetMapping("/base-url")
+    public Object test(){
+        return ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
     }
 }
