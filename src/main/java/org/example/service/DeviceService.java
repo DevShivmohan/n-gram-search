@@ -12,4 +12,5 @@ public interface DeviceService {
     Device getDevice(int deviceId) throws SQLException;
     Device deleteDevice(int deviceId) throws Throwable;
     List<Device> getDevices() throws SQLException;
+    List<Device> getDevicesByNGramSearch(String keyword) throws SQLException;
 }

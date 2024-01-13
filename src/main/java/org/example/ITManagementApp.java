@@ -3,11 +3,17 @@ package org.example;
 import org.example.entity.*;
 import org.example.service.DeviceOrderService;
 import org.example.service.DeviceReturnService;
+import org.example.service.DeviceService;
+import org.example.service.StudentService;
 import org.example.service.impl.DeviceOrderServiceImpl;
 import org.example.service.impl.DeviceReturnServiceImpl;
+import org.example.service.impl.DeviceServiceImpl;
+import org.example.service.impl.StudentServiceImpl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ITManagementApp {
     public static void main(String[] args) throws Throwable {
@@ -16,13 +22,13 @@ public class ITManagementApp {
 //        student.setStudentId("AYUS3H122135");
 //        student.setEmail("ayush@dfjh");
 //        student.setGrade("123");
-//        StudentService studentService=new StudentServiceImpl();
+        StudentService studentService=new StudentServiceImpl();
 //        Student student1= studentService.addStudent(student);
 //        System.out.println(student1);
 //        studentService.getStudents().forEach(System.out::println);
 //        studentService.getStudents().forEach(System.out::println);
 //        Device device=new Device(0,"Mobile","FTRE24536",4,null);
-//        DeviceService deviceService=new DeviceServiceImpl();
+        DeviceService deviceService=new DeviceServiceImpl();
 //        Device device1= deviceService.addDevice(device);
 //        System.out.println(device1);
 //        Scanner scanner=new Scanner(System.in);
@@ -34,7 +40,7 @@ public class ITManagementApp {
 //        deviceService.deleteDevice(1);
 //        List<Device> result= deviceService.getDevices();
 //        System.out.println(result);
-//        DeviceOrderService deviceOrderService=new DeviceOrderServiceImpl();
+        DeviceOrderService deviceOrderService=new DeviceOrderServiceImpl();
 //        DeviceOrder deviceOrder=new DeviceOrder();
 //        Student student=new Student();
 //        List<OrderItem> orderItems=new ArrayList<OrderItem>();
@@ -45,12 +51,20 @@ public class ITManagementApp {
 //        deviceOrder.setOrderItems(orderItems);
 //        DeviceOrder result= deviceOrderService.addDeviceOrder(deviceOrder);
 //        System.out.println(result);
-        DeviceReturnService deviceReturnService=new DeviceReturnServiceImpl();
-        DeviceReturn deviceReturn=new DeviceReturn();
-        DeviceOrder deviceOrder=new DeviceOrder();
-        deviceOrder.setId(1);
-        deviceReturn.setDeviceOrder(deviceOrder);
-        DeviceReturn result= deviceReturnService.addDeviceReturn(deviceReturn);
-        System.out.println(result);
+//        DeviceReturnService deviceReturnService=new DeviceReturnServiceImpl();
+//        DeviceReturn deviceReturn=new DeviceReturn();
+//        DeviceOrder deviceOrder=new DeviceOrder();
+//        deviceOrder.setId(1);
+//        deviceReturn.setDeviceOrder(deviceOrder);
+//        DeviceReturn result= deviceReturnService.addDeviceReturn(deviceReturn);
+//        System.out.println(result);
+
+        deviceOrderService.getOverDueOrders().forEach(System.out::println);
+
+
+        deviceService.getDevicesByNGramSearch("laptot").forEach(System.out::println);
+
+        studentService.getStudentsByNGramSearch("yushw").forEach(System.out::println);
+
     }
 }

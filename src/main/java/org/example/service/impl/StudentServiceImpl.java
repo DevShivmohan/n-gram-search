@@ -2,6 +2,7 @@ package org.example.service.impl;
 
 
 import org.example.connections.SqlConnection;
+import org.example.constants.DbConstants;
 import org.example.entity.Student;
 import org.example.service.StudentService;
 
@@ -85,6 +86,22 @@ public class StudentServiceImpl implements StudentService {
             student.setGrade(resultSet.getString(5));
             student.setJoinedDate(new Date(resultSet.getLong(6)));
             students.add(student);
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return students;
+    }
+
+    @Override
+    public List<Student> getStudentsByNGramSearch(String keyword) throws Throwable {
+        List<Student> students=new ArrayList<>();
+        Connection connection=SqlConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement=connection.prepareStatement(DbConstants.QUERY_FOR_N_GRAM_SEARCH_STUDENT);
+        preparedStatement.setString(1,keyword);
+        preparedStatement.setString(2,keyword);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        while (resultSet.next()){
+            students.add(getStudent(resultSet.getInt(1)));
         }
         resultSet.close();
         preparedStatement.close();

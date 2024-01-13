@@ -1,6 +1,7 @@
 package org.example.service.impl;
 
 import org.example.connections.SqlConnection;
+import org.example.constants.DbConstants;
 import org.example.entity.*;
 import org.example.service.DeviceOrderService;
 import org.example.service.DeviceService;
@@ -11,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -110,5 +112,25 @@ public class DeviceOrderServiceImpl implements DeviceOrderService {
         resultSet1.close();
         preparedStatement2.close();
         return deviceOrder;
+    }
+
+    /**
+     *
+     * @return Return overdue orders sorted by greater due at the top
+     * @throws Throwable
+     */
+    @Override
+    public List<DeviceOrder> getOverDueOrders() throws Throwable {
+        Connection connection=SqlConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement= connection.prepareStatement(DbConstants.QUERY_FOR_OVERDUE_ORDERS);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        List<DeviceOrder> overDueDeviceOrders=new ArrayList<>();
+        while (resultSet.next()){
+            overDueDeviceOrders.add(getDeviceOrder(resultSet.getInt(1)));
+        }
+        resultSet.close();
+        preparedStatement.close();
+        overDueDeviceOrders.sort(Comparator.comparing(DeviceOrder::getExpectedReturnDate));
+        return overDueDeviceOrders;
     }
 }

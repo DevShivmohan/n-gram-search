@@ -2,6 +2,7 @@ package org.example.service.impl;
 
 
 import org.example.connections.SqlConnection;
+import org.example.constants.DbConstants;
 import org.example.entity.Device;
 import org.example.service.DeviceService;
 
@@ -81,6 +82,22 @@ public class DeviceServiceImpl implements DeviceService {
         while (resultSet.next()){
             devices.add(new Device(resultSet.getInt(1),resultSet.getString(2),resultSet.getString(3)
                     ,resultSet.getInt(4),new Date(resultSet.getLong(5))));
+        }
+        resultSet.close();
+        preparedStatement.close();
+        return devices;
+    }
+
+    @Override
+    public List<Device> getDevicesByNGramSearch(String keyword) throws SQLException {
+        List<Device> devices=new ArrayList<>();
+        Connection connection=SqlConnection.getInstance().getConnection();
+        PreparedStatement preparedStatement=connection.prepareStatement(DbConstants.QUERY_FOR_N_GRAM_SEARCH_DEVICE);
+        preparedStatement.setString(1,keyword);
+        preparedStatement.setString(2,keyword);
+        ResultSet resultSet=preparedStatement.executeQuery();
+        while (resultSet.next()){
+            devices.add(getDevice(resultSet.getInt(1)));
         }
         resultSet.close();
         preparedStatement.close();
