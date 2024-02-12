@@ -33,13 +33,15 @@ public class NGramController {
             @RequestParam(value = "sortOrder",defaultValue = "ASC",required = false) SortOrder sortOrder,
             @RequestParam(value = "sortColumn",defaultValue = "name",required = false) String sortColumn,
             @RequestParam(value = "name",required = false) String name,
-            @RequestParam(value = "bio",required = false) String bio
+            @RequestParam(value = "bio",required = false) String bio,
+            @RequestParam(value = "keyword",required = false) String keyword
     ){
         final PaginationRequestDto paginationRequestDto=new PaginationRequestDto();
         paginationRequestDto.setPageNumber(pageNumber);
         paginationRequestDto.setPageSize(pageSize);
         paginationRequestDto.setSortOrder(sortOrder);
         paginationRequestDto.setSortColumn(sortColumn);
+        paginationRequestDto.setKeyword(keyword);
 
         final NGram filter=(name==null || bio==null) ? null : new NGram();
         if(filter!=null){

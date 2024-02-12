@@ -8,4 +8,5 @@ public class PaginationRequestDto {
     private int pageSize;
     private SortOrder sortOrder;
     private String sortColumn;
+    private String keyword;
 }

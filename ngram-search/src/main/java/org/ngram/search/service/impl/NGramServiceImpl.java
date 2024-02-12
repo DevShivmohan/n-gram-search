@@ -35,7 +35,8 @@ public class NGramServiceImpl implements NGramService {
         final PaginationResponseDto paginationResponseDto = new PaginationResponseDto();
         final PageRequest pageRequest = PageRequest.of(paginationRequestDto.getPageNumber(), paginationRequestDto.getPageSize(), direction, paginationRequestDto.getSortColumn());
         if (filterDto == null) {
-            final Page<NGram> page = nGramRepository.findAll(pageRequest);
+//            final Page<NGram> page = nGramRepository.findAll(pageRequest);
+            final Page<NGram> page = nGramRepository.findAllWithCustomNativeQueryPagination(paginationRequestDto.getKeyword(),pageRequest);
             mapPageToEntity(page, paginationResponseDto);
             return ResponseEntity.status(HttpStatus.OK).body(paginationResponseDto);
         }
